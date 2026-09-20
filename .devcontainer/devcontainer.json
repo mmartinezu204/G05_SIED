@@ -1,0 +1,17 @@
+{
+	"name": "ddia",
+	"build": {
+		"dockerfile": "dockerfile",
+		"context": "."
+	},
+	"workspaceMount": "source=${localWorkspaceFolder}/../,target=/workspace,type=bind",
+	"workspaceFolder": "/workspace/ddia",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"hashicorp.terraform",
+				"ms-python.python"
+			]
+		}
+	}
+}

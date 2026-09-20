@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets
+.env
+
+# Terraform state y caches locales (no son el modulo, se regeneran)
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/*.tfstate
+infra/*.tfstate.*
+infra/crash.log
+infra/*.tfvars
+infra/*.tfvars.json
+
+# Datos descargados/generados por setup.sh (varios GB, no van al repo)
+datos/

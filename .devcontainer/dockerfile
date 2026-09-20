@@ -1,0 +1,22 @@
+FROM ubuntu:24.04 AS builder
+
+RUN apt-get update \
+    && apt-get install -y wget unzip \
+    && wget -q https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip -O terraform.zip \
+    && unzip terraform.zip -d /usr/local/bin \
+    && rm terraform.zip \
+    && wget -q https://github.com/databricks/cli/releases/download/v1.16.1/databricks_cli_1.16.1_linux_amd64.zip -O databricks.zip \
+    && unzip databricks.zip -d /usr/local/bin \
+    && rm databricks.zip
+
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+RUN apt-get update \
+    && apt-get install -y jq unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
+COPY --from=builder /usr/local/bin/databricks /usr/local/bin/databricks
+
+CMD ["sleep", "infinity"]
